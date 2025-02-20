@@ -20,7 +20,7 @@ fn main() {
         .expect("Failed to read line"); //不写错误处理,  会出现警告
     // &mut guess as the argument to read_line to tell it what string to store the user input in.
     println!("You guessed: {}", guess_number);
-    println!("You guessed: {}", secret_number);
+    println!("You random number: {}", secret_number);
     // 将字符串转换为数字
     let guess_number: u32 = guess_number.trim().parse().expect("Please type a number!");
     match guess_number.cmp(&secret_number) {

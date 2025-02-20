@@ -74,7 +74,7 @@ use std::io;
 fn main() {
     println!("Guess the number!");
 
-    println!("Please input your guess.");
+    println!("Please input your guess.");1
 
     // let apples = 5; // immutable
     // let mut bananas = 5; // mutable
@@ -94,5 +94,6 @@ fn main() {
 **Rust 的所有权系统确保内存安全。通过传递可变引用（&mut guess），read_line 可以借用 guess 并修改它，而不会获取 guess 的所有权。
 这样，guess 的所有权仍然在 main 函数中，read_line 只是临时借用它。**
 
-
+声明数字类型
+`let guess_number: u32 = 42;`
 
