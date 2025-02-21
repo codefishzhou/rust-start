@@ -1,38 +1,72 @@
 use std::io;
 
 fn main(){
-    let mut operation_number1 = String::new();
-    let mut operation_number2 = String::new();
-    let mut operation_code = String::new();
-    println!("print a number:");
-    io::stdin()
-        .read_line(&mut operation_number1)
-        .expect("Failed to read line");
-    println!("print a operation code, +-*/");
-    io::stdin().read_line(&mut operation_code).expect("Failed to read line");
-    println!("now is {} {} ", &operation_number1, &operation_code);
-    io::stdin().read_line(&mut operation_number2).expect("Failed to read line");
-    println!("now is {} {} {} = {}", &operation_number1, &operation_code, &operation_number2, judge_operation(&operation_code, &operation_number1, &operation_number2));
+    print_fn()
 }
 
-fn judge_operation(code: &str, a: &str, b: &str) -> i32 {
-    let num1 = a.trim().parse::<i32>().unwrap();
-    let num2 = b.trim().parse::<i32>().unwrap();
+fn handle_operation(code: &str, num1: i32, num2: i32) -> i32 {
     println!("code:{}", code);
     match code.trim() {
         "+" => add(num1, num2),
         "-" => sub(num1, num2),
+        "*" => mul(num1, num2),
+        "/" => div(num1, num2),
         _ => 0,
     }
 
 }
 
 fn add(a: i32, b:i32) -> i32 {
-    println!("a:{}, b:{}, =:{}", a,b, a + b);
     // Rust 中函数的返回值可以是最后一个表达式（不加分号）
     a + b
 }
 
 fn sub(a: i32, b:i32) -> i32 {
     a - b
+}
+
+fn mul(a: i32, b: i32) -> i32 {
+    a * b
+}
+
+fn div(a: i32, b: i32) -> i32 {
+    a / b
+}
+
+fn judgeCode(code: &str) -> bool {
+    match code.trim() {
+        "=" => true, // 匹配任意一个
+        _ => false,
+    }
+}
+
+fn print_fn() {
+    let mut pause = String::from("+");
+    let mut switch_flag = false;
+    let mut mul_number = String::new();
+    let mut result = 0;
+    
+    while pause.trim() != "=" {
+        println!("pause: {}", pause);
+        match switch_flag {
+            true => {
+                println!("now need input a mul code(+-*/):");
+                pause.clear(); 
+                io::stdin().read_line(&mut pause).expect("读取失败");
+                switch_flag = false;
+            },
+            false => {
+                println!("now need input a number:");
+                io::stdin().read_line(&mut mul_number).expect("读取失败");
+                
+                let number: i32 = mul_number.trim().parse().expect("请输入数字");
+                
+                result = handle_operation(&pause, result, number);
+                
+                switch_flag = true;
+                mul_number.clear();
+            },
+        }
+    }
+    println!("最终结果: {}", result);
 }
