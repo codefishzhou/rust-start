@@ -1,17 +1,22 @@
 struct Mario {
-    is_samll: bool,
+    is_small: bool,
     coins: i32,
 }
 
 impl Mario {
-    fn new(&self={coins:100, is_small: true})-> Mario  {
-        pub fn get_coins(&self) -> i32 {
-            self.coins
+    fn new() -> Self {
+        Mario {
+            is_small : false ,
+            coins : 100 ,
         }
+    }
+
+    fn get_coins(&self) -> i32 {
+        self.coins
     }
 }
 
 fn main() {
-   let marion = Mario::new();
+   let mario = Mario::new();
    assert_eq!(mario.get_coins(), 100); 
 }
